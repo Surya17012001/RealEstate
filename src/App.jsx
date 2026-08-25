@@ -2,13 +2,12 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 
-// Layouts
 import MainLayout from "./layouts/MainLayout";
 import AdminLayout from "./layouts/AdminLayout";
 
-// Public pages
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -20,7 +19,6 @@ import ProjectDetails from "./pages/ProjectDetails";
 import Agents from "./pages/Agents";
 import NotFound from "./pages/NotFound";
 
-// Admin pages
 import AdminProperties from "./pages/admin/AdminProperties";
 import AddProperty from "./pages/admin/AddProperty";
 import EditProperty from "./pages/admin/EditProperty";
@@ -30,9 +28,9 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* =========================================
-            PUBLIC WEBSITE
-        ========================================== */}
+        {/* =========================
+            CLIENT WEBSITE
+        ========================== */}
 
         <Route element={<MainLayout />}>
 
@@ -51,14 +49,6 @@ function App() {
             element={<Services />}
           />
 
-          {/* IMPORTANT:
-              Query parameters work automatically here.
-
-              /properties
-              /properties?purpose=Sale
-              /properties?purpose=Sale&location=chennai
-              /properties?purpose=Sale&location=chennai&type=House
-          */}
           <Route
             path="/properties"
             element={<Properties />}
@@ -91,14 +81,24 @@ function App() {
 
         </Route>
 
-        {/* =========================================
+        {/* =========================
             ADMIN
-        ========================================== */}
+        ========================== */}
 
         <Route
           path="/admin"
           element={<AdminLayout />}
         >
+
+          <Route
+            index
+            element={
+              <Navigate
+                to="/admin/properties"
+                replace
+              />
+            }
+          />
 
           <Route
             path="properties"
@@ -117,9 +117,9 @@ function App() {
 
         </Route>
 
-        {/* =========================================
+        {/* =========================
             404
-        ========================================== */}
+        ========================== */}
 
         <Route
           path="*"
